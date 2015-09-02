@@ -3,68 +3,16 @@
 <head>
   <meta charset="UTF-8" />
   <title>Thai Phrases</title>
-  <script src="//code.jquery.com/jquery-2.1.4.js"></script>
-  <script src="build/react.js"></script>
-  <script src="build/JSXTransformer.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=10.0, user-scalable=1">
+  <link href="palette.css" rel="stylesheet">
+  <link href="main.css" rel="stylesheet">
+  <script src="jspm_packages/system.js"></script>
+  <script src="config.js"></script>
 </head>
 <body>
   <div id="example"></div>
-    <script type="text/jsx">
-    var ThaiPhrase = React.createClass({
-      getInitialState: function() {
-        return {
-          words: [],
-          word: '',
-          meaning: '',
-          transliteration: ''
-        }
-      },
-
-      componentDidMount: function() {
-        $.get(this.props.source, function(results){
-          var nextWord = this.getRandomWord(results);
-          if(this.isMounted()) {
-            this.setState({
-              words: results,
-              word: nextWord.word,
-              meaning: nextWord.meaning,
-              transliteration: nextWord.transliteration
-            })
-          }
-        }.bind(this))
-      },
-
-      getRandomWord: function(o) {
-        for(var j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
-        return o[0];
-      },
-
-      checkWord: function(event) {
-        if(this.state.word === event.target.value){
-          var nextWord = this.getRandomWord(this.state.words);
-          this.setState({
-            word: nextWord.word,
-            meaning: nextWord.meaning,
-            transliteration: nextWord.transliteration
-          });
-        }
-      },
-
-      render: function() {
-        return (
-          <div>
-            <h1>{this.state.word}</h1>
-            <h4>{this.state.meaning}</h4>
-            <h4>{this.state.transliteration}</h4>
-            <input type="text" onChange={this.checkWord} />
-          </div>
-        )
-      }
-    })
-      React.render(
-        <ThaiPhrase source="words.json">Phrase!</ThaiPhrase>,
-        document.getElementById('example')
-      );
-    </script>
+  <script>
+    System.import('app/main');
+  </script>
 </body>
 </html>

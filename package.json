@@ -17,6 +17,9 @@
   },
   "homepage": "https://github.com/emailnitram/thai-phrase",
   "devDependencies": {
+    "browser-sync": "^2.8.2",
+    "gulp": "^3.9.0",
+    "gulp-sass": "^2.0.4",
     "jspm": "^0.16.2"
   },
   "jspm": {

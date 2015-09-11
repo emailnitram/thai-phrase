@@ -4,7 +4,7 @@
   "description": "React is a JavaScript library for building user interfaces.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "buildjs": "jspm bundle app/main --inject"
   },
   "repository": {
     "type": "git",
@@ -20,18 +20,29 @@
     "browser-sync": "^2.8.2",
     "gulp": "^3.9.0",
     "gulp-sass": "^2.0.4",
-    "jspm": "^0.16.2"
+    "gulp-shell": "^0.4.3",
+    "gulp-useref": "^1.3.0",
+    "jspm": "^0.16.2",
+    "node-sass": "^3.3.2"
   },
   "jspm": {
     "directories": {},
     "dependencies": {
       "fetch": "github:github/fetch@^0.9.0",
-      "react": "npm:react@^0.13.3"
+      "react": "npm:react@^0.13.3",
+      "react-router": "npm:react-router@^0.13.3"
     },
     "devDependencies": {
       "babel": "npm:babel-core@^5.8.22",
       "babel-runtime": "npm:babel-runtime@^5.8.20",
       "core-js": "npm:core-js@^1.1.0"
     }
+  },
+  "dependencies": {
+    "koa": "^1.0.0",
+    "koa-json": "^1.1.1",
+    "koa-mongo": "^0.4.1",
+    "koa-router": "^5.1.2",
+    "koa-static": "^1.4.9"
   }
 }

@@ -44,7 +44,7 @@ var AddPhrase = React.createClass({
 var ThaiPhrase = React.createClass({
   getInitialState () {
     return {
-      source: 'http://localhost:3000/words.json',
+      source: 'http://localhost:3000/phrases',
       words: [],
       word: '',
       meaning: '',

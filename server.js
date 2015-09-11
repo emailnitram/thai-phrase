@@ -3,6 +3,7 @@ var serve = require('koa-static');
 var json = require('koa-json');
 var router = require('koa-router')();
 var mongo = require('koa-mongo');
+var koaBody = require('koa-body')();
 
 var app = koa();
 
@@ -17,7 +18,12 @@ app.use(mongo({
   log: false
 }));
 
-router.get('/words.json', function *(){
+router.post('/phrases', koaBody, function *(){
+  console.log(this.request.body)
+  this.body = this.request.body;
+});
+
+router.get('/phrases', function *(){
   this.body = yield this.mongo.db('thai').collection('words').find().toArray()
 });
 app.use(router.routes());

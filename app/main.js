@@ -1,9 +1,50 @@
+import Router from 'react-router';
 import React from 'react';
 import 'fetch';
+
+var Route = Router.Route;
+var DefaultRoute = Router.DefaultRoute;
+
+
+var App = React.createClass({
+  render() {
+    return (
+      <RouteHandler/>
+    )
+  }
+});
+
+var AddPhrase = React.createClass({
+  handleSubmit(event){
+    var phrase = React.findDOMNode(this.refs.phrase).value.trim();
+    var meaning = React.findDOMNode(this.refs.meaning).value.trim();
+    var transliteration = React.findDOMNode(this.refs.transliteration).value.trim();
+    console.log(phrase + 'a');
+    console.log('meaning',meaning);
+    console.log('transliteration',transliteration);
+  },
+  render() {
+    return (
+      <div>
+        <form onSubmit={this.handleSubmit}>
+          <label htmlFor="phrase">Phrase:</label>
+          <input id="phrase" type="text" ref="phrase"/>
+          <label htmlFor="meaning">Meaning:</label>
+          <input id="meaning" type="text" ref="meaning"/>
+          <label htmlFor="transliteration">Transliteration:</label>
+          <input id="transliteration" type="text" ref="transliteration"/>
+          <button type="submit">Add Phrase</button>
+        </form>
+      </div>
+      )
+  }
+});
+
 
 var ThaiPhrase = React.createClass({
   getInitialState () {
     return {
+      source: 'http://localhost:3000/words.json',
       words: [],
       word: '',
       meaning: '',
@@ -14,7 +55,7 @@ var ThaiPhrase = React.createClass({
 
   componentDidMount () {
     React.findDOMNode(this.refs.wordInput).focus();
-    fetch(this.props.source).then(r => r.json())
+    fetch(this.state.source).then(r => r.json())
     .then((results) => {
       var nextWord = this.getRandomWord(results);
       if(this.isMounted()) {
@@ -71,8 +112,17 @@ var ThaiPhrase = React.createClass({
     )
   }
 })
-React.render(
-  <ThaiPhrase source="words.json">Phrase!</ThaiPhrase>,
-  document.getElementById('example')
+
+var routes = (
+    <Route handler={App}>
+      <DefaultRoute handler={ThaiPhrase}/>
+      <Route path="phrase" handler={ThaiPhrase}/>
+      <Route path="add-phrase" handler={AddPhrase}/>
+    </Route>
 );
 
+var RouteHandler = Router.RouteHandler;
+
+Router.run(routes, Router.HashLocation, (Root) => {
+  React.render(<Root/>, document.body);
+});
